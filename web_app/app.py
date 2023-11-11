@@ -23,13 +23,14 @@ def predict():
         tokenizer.encode(request.json[0], add_special_tokens=True)
     ).unsqueeze(0)
     if input_ids.requires_grad:
-        numpy_function = input_ids.detach().cpu().numpy()
+        numpy_value = input_ids.detach().cpu().numpy()
     else:
-        numpy_function = input_ids.cpu().numpy()
-    inputs = {session.get_inputs()[0].name: numpy_function(input_ids)}
+        numpy_value = input_ids.cpu().numpy()
+    name = session.get_inputs()[0].name
+    inputs = {name: numpy_value}
     output = session.run(None, inputs)
     result = np.argmax(output)
-    return jsonify({"grumpy": bool(result)})
+    return jsonify({"grumpy": not bool(result)})
 
 
 if __name__ == "__main__":
