@@ -1,0 +1,10 @@
+version: '3'
+services:
+    grumpy_or_not:
+      image: ${DOCKER_REGISTRY}grumpy-or-not:${DOCKER_TAG:-latest}
+      build:
+        target: main
+        context: ..
+        dockerfile: docker/Dockerfile
+      env_file: .env
+      tty: true
