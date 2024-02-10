@@ -28,4 +28,4 @@ EXPOSE ${GRUMPY_PORT:-8080}
 HEALTHCHECK --interval=2s --timeout=3s --retries=10\
 	CMD curl --fail http://${GRUMPY_HOST:-0.0.0.0}:${GRUMPY_PORT:-8080} || exit 1
 
-CMD ["python3", "web_app/app.py"]
+CMD gunicorn web_app.app:app -c web_app/gunicorn_prod.py

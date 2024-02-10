@@ -32,10 +32,12 @@ def predict():
     result = np.argmax(output)
     return jsonify({"grumpy": not bool(result)})
 
+
 def main():
     host = os.environ.get("GRUMPY_HOST", "0.0.0.0")
     port = os.environ.get("GRUMPY_PORT", "8080")
     app.run(host=host, port=port)
+
 
 if __name__ == "__main__":
     main()
